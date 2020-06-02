@@ -1,4 +1,5 @@
-each checkin will demo the following topics:
+https://www.w3schools.com/nodejs/default.asp
+*Each checkin will demo the following topics:
 0. initialize project
 1. return hello pita string from console
 2. return hello pita json from web server
@@ -12,5 +13,5 @@ each checkin will demo the following topics:
 10. manage store data in MySQL DB
 11. unit testing code
 12. implement JWT.IO authentication 
-*only return JSON
+*from topic 2 ,return only JSON output
 *all technologies should be standard and most popular
