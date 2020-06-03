@@ -1,15 +1,17 @@
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
+const http = require('http');
+const url = require('url');
+const fs = require('fs');
+const utils = require('./utils');
+//
 var message = JSON.parse('{"id":1,"text":"started server","data":""}')
 //
-log(message.text);
+utils.log(message.text);
 //
 http.createServer(function (req, res) {
-    log('started to handle request!');
+    utils.log('started to handle request!');
     //
-    if (req.url.includes('html')) {
-      handleFileRequest(req,res);
+    if (utils.hasSupportedFileExtention(req.url)) {
+      utils.handleFileRequest(req,res);
     }
     else{
       message.text = 'Hello!'    
@@ -23,26 +25,9 @@ http.createServer(function (req, res) {
       res.end(JSON.stringify(message));
     }
     //
-    log('finished to handle request');
+    utils.log('finished to handle request');
   }).listen(8080);
 //
 message.text ='closed server';
-log(message.text);
+utils.log(message.text);
 //
-function handleFileRequest(req,res){
-  var q = url.parse(req.url, true);
-  var filename = "." + q.pathname;
-  fs.readFile(filename, function(err, data) {
-    if (err) {
-      res.writeHead(404, {'Content-Type': 'text/html'});
-      return res.end("404 Not Found");
-    } 
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    return res.end();
-  });
-}
-//
-function log(message){
-    console.log(new Date().toLocaleTimeString() + ':' + message);
-}
